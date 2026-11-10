@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Smitraj Bankar — live contribution signal</title>
+<meta name="description" content="Interactive GitHub contribution explorer for ByteNinjaSmit. Pick a year, hover a day.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0D0C0B;--surf:#151311;--line:#2B2723;--line2:#3A352E;--paper:#EFEAE0;--dim:#8F897D;--acc:#FFD23F;--ok:#7DE3A3;
+--l0:#1C1A17;--l1:#4A3F14;--l2:#8A7119;--l3:#D1AB26;--l4:#FFD23F;--c:14px;--g:4px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--ink);color:var(--paper);font:15px/1.5 "Bricolage Grotesque",system-ui,sans-serif;min-height:100vh;
+background-image:radial-gradient(#27231F 1px,transparent 1px);background-size:24px 24px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--dim)}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+.top{display:flex;justify-content:space-between;align-items:center;padding-bottom:16px;border-bottom:1px solid var(--line2)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--ok);margin-right:10px;animation:p 1.8s ease-in-out infinite}
+@keyframes p{50%{opacity:.25}}
+a{color:var(--acc);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-weight:800;font-size:clamp(40px,7vw,76px);letter-spacing:-.04em;line-height:1;margin:44px 0 8px}
+h1 i{font-family:"Instrument Serif",serif;font-weight:400;color:var(--acc);letter-spacing:-.02em;font-size:1.18em}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 22px}
+.tab{font:700 11px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--paper);background:none;
+border:1px solid var(--line2);border-radius:999px;padding:9px 16px;cursor:pointer;transition:.18s}
+.tab:hover{border-color:var(--acc)}.tab[aria-selected=true]{background:var(--acc);color:var(--ink);border-color:var(--acc)}
+.tab small{opacity:.6;margin-left:6px;font-weight:500}
+.card{background:var(--surf);border:1px solid var(--line2);border-radius:16px;padding:26px 24px}
+.big{font:400 clamp(54px,9vw,92px)/1 "Instrument Serif",serif;letter-spacing:-.03em}
+.hd{display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.scroll{overflow-x:auto;padding-bottom:10px}
+.grid{position:relative;display:grid;grid-template-rows:repeat(7,var(--c));gap:var(--g);width:max-content;margin-left:34px;margin-top:22px}
+.cell{width:var(--c);height:var(--c);border-radius:3px;background:var(--l0);animation:pop .5s cubic-bezier(.2,.7,.3,1) both;outline:0}
+.cell:hover,.cell:focus-visible{outline:2px solid var(--paper);outline-offset:1px;z-index:2}
+@keyframes pop{from{opacity:0;transform:scale(.2)}}
+.lv1{background:var(--l1)}.lv2{background:var(--l2)}.lv3{background:var(--l3)}.lv4{background:var(--l4)}
+.mon{position:absolute;top:-18px;font:500 9px "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.dow{position:absolute;left:-34px;font:500 9px "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--dim)}
+.legend{display:flex;gap:6px;align-items:center;justify-content:flex-end;margin-top:14px}
+.legend i{width:13px;height:13px;border-radius:3px;display:block}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px}
+.stat{border:1px solid var(--line2);border-radius:14px;padding:18px 20px;background:var(--surf)}
+.stat b{display:block;font:400 46px/1.05 "Instrument Serif",serif;margin-top:6px}
+.stat span{font:500 12px "JetBrains Mono",monospace;color:var(--dim)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+.bars{display:flex;align-items:flex-end;gap:8px;height:130px;margin-top:18px}
+.bar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%}
+.bar i{width:100%;background:var(--acc);border-radius:4px 4px 0 0;min-height:2px;transform-origin:bottom;animation:up .8s cubic-bezier(.3,.8,.2,1) both}
+@keyframes up{from{transform:scaleY(0)}}
+.bar span{font:500 9px "JetBrains Mono",monospace;color:var(--dim);letter-spacing:.08em}
+.bar:hover i{background:var(--paper)}
+.lang{display:grid;grid-template-columns:110px 1fr 54px;gap:12px;align-items:center;margin-top:14px;font-size:14px}
+.lang .t{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.lang .t i{display:block;height:100%;background:var(--acc);transform-origin:left;animation:r 1.2s cubic-bezier(.3,.8,.2,1) both}
+@keyframes r{from{transform:scaleX(0)}}
+.lang em{font:500 12px "JetBrains Mono",monospace;color:var(--dim);font-style:normal;text-align:right}
+#tip{position:fixed;pointer-events:none;background:var(--paper);color:var(--ink);padding:8px 12px;border-radius:8px;font:700 11px "JetBrains Mono",monospace;letter-spacing:.06em;opacity:0;transform:translate(-50%,-130%);transition:opacity .12s;white-space:nowrap;z-index:9}
+#tip small{display:block;font-weight:500;opacity:.7;margin-top:2px}
+footer{margin-top:44px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="mono"><span class="dot"></span>ByteNinjaSmit / live contribution signal</span><a class="mono" href="https://github.com/ByteNinjaSmit">github ↗</a></div>
+  <h1>Every commit, <i>on the record.</i></h1>
+  <p class="mono" id="upd">loading…</p>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Pick a period"></div>
+  <section class="card">
+    <div class="hd"><div class="big" id="total">–</div><div class="mono" id="range">CONTRIBUTIONS</div></div>
+    <div class="scroll"><div class="grid" id="grid" aria-label="Contribution calendar"></div></div>
+    <div class="legend mono">Less <i style="background:var(--l0)"></i><i style="background:var(--l1)"></i><i style="background:var(--l2)"></i><i style="background:var(--l3)"></i><i style="background:var(--l4)"></i> More</div>
+  </section>
+  <div class="stats" id="stats"></div>
+  <div class="two">
+    <section class="card"><div class="mono">Busiest weekday</div><div class="bars" id="dow"></div></section>
+    <section class="card"><div class="mono">By month</div><div class="bars" id="mon"></div></section>
+  </div>
+  <section class="card" style="margin-top:14px"><div class="mono">Most-used languages · by bytes, own repos</div><div id="langs"></div></section>
+  <footer class="mono"><span>Data refreshed from the GitHub API on a schedule</span><a href="https://github.com/ByteNinjaSmit">← back to profile</a></footer>
+</div>
+<div id="tip"></div>
+<script>
+const $=id=>document.getElementById(id), fmt=n=>n.toLocaleString("en-IN");
+const DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const SKIP=new Set(["Jupyter Notebook","HTML","CSS","Makefile","Dockerfile","Shell","SCSS","TeX","Batchfile"]);
+const dt=s=>new Date(s+"T00:00:00Z");
+fetch("data.json?"+Date.now()).then(r=>r.json()).then(init).catch(e=>{$("upd").textContent="could not load data.json"});
+
+function init(D){
+  $("upd").textContent="last refreshed "+D.updated+" · "+D.repos+" public repos";
+  const tabs=[{k:"roll",label:"Last 12 months",cal:D.calendar},...Object.keys(D.calendars).sort().reverse().filter(y=>D.calendars[y].total>0).map(y=>({k:y,label:y,cal:D.calendars[y]}))];
+  const all=[D.calendar,...Object.values(D.calendars)].flatMap(c=>c.days.map(d=>d[1])).filter(n=>n>0).sort((a,b)=>a-b);
+  const q=[.25,.5,.75].map(p=>all[Math.floor(all.length*p)]||1);
+  const lvl=n=>n?1+q.filter(t=>n>t).length:0;
+  const T=$("tabs");
+  tabs.forEach((t,i)=>{const b=document.createElement("button");b.className="tab";b.role="tab";b.innerHTML=t.label+"<small>"+fmt(t.cal.total)+"</small>";
+    b.onclick=()=>{select(i);history.replaceState(null,"","#"+t.k)};T.appendChild(b);t.el=b});
+  const tip=$("tip");
+  function select(i){
+    tabs.forEach((t,j)=>t.el.setAttribute("aria-selected",i==j));
+    const cal=tabs[i].cal, days=cal.days;
+    $("total").textContent=fmt(cal.total);
+    $("range").textContent="contributions · "+(tabs[i].k=="roll"?"last 12 months":"in "+tabs[i].label);
+    // grid
+    const g=$("grid"); g.innerHTML="";
+    const first=dt(days[0][0]); let col=1, lastM=-1;
+    const wd=d=>dt(d).getUTCDay();
+    days.forEach(([d,n],idx)=>{
+      const w=wd(d); if(idx>0&&w==0)col++;
+      const c=document.createElement("div"); c.className="cell lv"+lvl(n); c.tabIndex=0;
+      c.style.gridColumn=col; c.style.gridRow=w+1; c.style.animationDelay=(col*.025+w*.015)+"s";
+      const text=()=>{const D_=dt(d);return[fmt(n)+" contribution"+(n==1?"":"s"),DOW[w]+", "+D_.getUTCDate()+" "+MON[D_.getUTCMonth()]+" "+D_.getUTCFullYear()]};
+      const show=e=>{const r=c.getBoundingClientRect(),[a,b]=text();tip.innerHTML=a+"<small>"+b+"</small>";tip.style.left=(r.left+r.width/2)+"px";tip.style.top=r.top+"px";tip.style.opacity=1};
+      c.onmouseenter=show;c.onfocus=show;c.onmouseleave=c.onblur=()=>tip.style.opacity=0;
+      g.appendChild(c);
+      const m=dt(d).getUTCMonth(); if(m!=lastM&&(idx==0||(w==0&&dt(d).getUTCDate()<=7))){lastM=m;const l=document.createElement("span");l.className="mon";l.textContent=MON[m];l.style.left=(col-1)*(14+4)+"px";g.appendChild(l)}
+    });
+    g.style.gridTemplateColumns="repeat("+col+",var(--c))";
+    [["Mon",1],["Wed",3],["Fri",5]].forEach(([t,r])=>{const s=document.createElement("span");s.className="dow";s.textContent=t;s.style.top=(r*18+1)+"px";g.appendChild(s)});
+    // stats
+    let best=days[0],run=0,longest=0,active=0,sum=0;
+    days.forEach(([d,n])=>{sum+=n;if(n>best[1])best=[d,n];if(n>0){active++;run++;longest=Math.max(longest,run)}else run=0});
+    let cur=0;for(let i=days.length-1;i>=0;i--){if(days[i][1]>0)cur++;else if(i==days.length-1)continue;else break}
+    const byD=Array(7).fill(0),byM=Array(12).fill(0);days.forEach(([d,n])=>{byD[wd(d)]+=n;byM[dt(d).getUTCMonth()]+=n});
+    const bd=dt(best[0]);
+    $("stats").innerHTML=[["Longest streak",longest+"d","consecutive active days"],["Active days",active+"d",Math.round(active/days.length*100)+"% of the range"],
+      ["Best day",fmt(best[1]),bd.getUTCDate()+" "+MON[bd.getUTCMonth()]+" "+bd.getUTCFullYear()],
+      tabs[i].k=="roll"?["Current streak",cur+"d","up to today"]:["Avg / active day",(sum/Math.max(active,1)).toFixed(1),"contributions"]]
+      .map(([a,b,c])=>`<div class="stat"><span class="mono">${a}</span><b>${b}</b><span>${c}</span></div>`).join("");
+    bars("dow",byD,DOW.map(s=>s[0]));bars("mon",byM,MON.map(s=>s[0]));
+  }
+  function bars(id,arr,labels){const mx=Math.max(...arr,1);$(id).innerHTML=arr.map((v,i)=>`<div class="bar" title="${labels[i]}: ${fmt(v)}"><i style="height:${v/mx*100}%;animation-delay:${i*.04}s"></i><span>${labels[i]}</span></div>`).join("")}
+  const want=location.hash.slice(1), start=Math.max(0,tabs.findIndex(t=>t.k==want)); select(start);
+  const L=Object.entries(D.langs).filter(([k])=>!SKIP.has(k)).sort((a,b)=>b[1]-a[1]).slice(0,6),tot=L.reduce((s,x)=>s+x[1],0);
+  $("langs").innerHTML=L.map(([k,v],i)=>`<div class="lang"><span>${k}</span><div class="t"><i style="width:${v/L[0][1]*100}%;animation-delay:${i*.1}s"></i></div><em>${(v/tot*100).toFixed(1)}%</em></div>`).join("");
+}
+</script>
+</body>
+</html>

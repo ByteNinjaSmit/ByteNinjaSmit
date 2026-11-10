@@ -53,8 +53,25 @@ def fetch():
             out["calendar"] = res["data"]["user"]["contributionsCollection"]["contributionCalendar"]
         except Exception as e:
             print("calendar fail", e, file=sys.stderr)
-    if out["calendar"] is None and os.path.exists(CACHE):
-        out["calendar"] = json.load(open(CACHE)).get("calendar")
+    prev = json.load(open(CACHE)) if os.path.exists(CACHE) else {}
+    if out["calendar"] is None:
+        out["calendar"] = prev.get("calendar")
+    out["calendars"] = prev.get("calendars", {})
+    if TOKEN:
+        import datetime
+        now = datetime.datetime.utcnow()
+        parts = []
+        for y in range(out["since"], now.year + 1):
+            to = now.strftime("%Y-%m-%dT%H:%M:%SZ") if y == now.year else f"{y}-12-31T23:59:59Z"
+            parts.append(f'y{y}: contributionsCollection(from:"{y}-01-01T00:00:00Z", to:"{to}")'
+                         '{contributionCalendar{totalContributions weeks{contributionDays{contributionCount date weekday}}}}')
+        q = "query($u:String!){user(login:$u){" + " ".join(parts) + "}}"
+        try:
+            res = call("https://api.github.com/graphql", json.dumps({"query": q, "variables": {"u": USER}}).encode())
+            for k, v in res["data"]["user"].items():
+                out["calendars"][k[1:]] = v["contributionCalendar"]
+        except Exception as e:
+            print("yearly calendars fail", e, file=sys.stderr)
     json.dump(out, open(CACHE, "w"))
     return out
 
@@ -70,6 +87,6 @@ def load(refresh=True):
 
 if __name__ == "__main__":
     d = fetch()
-    print({k: (v if k not in ("langs", "calendar") else "…") for k, v in d.items()})
+    print({k: (v if k not in ("langs", "calendar", "calendars") else "…") for k, v in d.items()})
     print(sorted(d["langs"].items(), key=lambda x: -x[1])[:8])
     print("calendar:", d["calendar"] and d["calendar"]["totalContributions"])

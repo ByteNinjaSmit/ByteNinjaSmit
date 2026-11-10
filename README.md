@@ -42,6 +42,15 @@ Also on the shelf &nbsp;·&nbsp;
 <img src="assets/signal.svg" alt="GitHub stats and most-used languages" width="100%"/>
 <img src="assets/heatmap.svg" alt="Contribution heatmap for the last 12 months" width="100%"/>
 
+<sub>pick a year ↓</sub>
+
+<details name="year"><summary><b>2026</b> &nbsp;·&nbsp; 1,521 contributions</summary><img src="assets/heatmap-2026.svg" alt="Contribution heatmap for 2026" width="100%"/></details>
+<details name="year"><summary><b>2025</b> &nbsp;·&nbsp; 1,053 contributions</summary><img src="assets/heatmap-2025.svg" alt="Contribution heatmap for 2025" width="100%"/></details>
+<details name="year"><summary><b>2024</b> &nbsp;·&nbsp; 255 contributions</summary><img src="assets/heatmap-2024.svg" alt="Contribution heatmap for 2024" width="100%"/></details>
+<details name="year"><summary><b>2023</b> &nbsp;·&nbsp; 5 contributions</summary><img src="assets/heatmap-2023.svg" alt="Contribution heatmap for 2023" width="100%"/></details>
+
+<a href="https://byteninjasmit.github.io/ByteNinjaSmit/"><img src="assets/pill-interactive.svg" alt="Open the interactive contribution explorer" height="44"/></a>
+
 <img src="assets/footer.svg" alt="Let's build something real." width="100%"/>
 
 <a href="https://smitraj.vercel.app/"><img src="assets/pill-portfolio.svg" alt="Portfolio" height="44"/></a>
@@ -51,6 +60,6 @@ Also on the shelf &nbsp;·&nbsp;
 <a href="https://leetcode.com/u/smitrajbankar"><img src="assets/pill-leetcode.svg" alt="LeetCode" height="44"/></a>
 
 <br/>
-<sub>Every graphic here is hand-built SVG (text outlined, motion via SMIL/CSS) and regenerated daily by <code>scripts/build.py</code> — no third-party widgets.</sub>
+<sub>Every graphic here is hand-built SVG (text outlined, motion via SMIL/CSS) and regenerated every 6 hours by <code>scripts/build.py</code> — no third-party widgets.</sub>
 
 </div>

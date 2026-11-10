@@ -114,13 +114,14 @@ def signal(data):
 
 
 # ───────────────────────────── HEATMAP ──────────────────────────────────────
-def heatmap(data):
-    cal = data.get("calendar")
+def heatmap(data, cal=None, label="LAST 12 MONTHS"):
+    cal = cal or data.get("calendar")
     if not cal:
         return None
     H = 232
     weeks = cal["weeks"]
-    counts = [d["contributionCount"] for w in weeks for d in w["contributionDays"]]
+    allcals = [data["calendar"]] + list((data.get("calendars") or {}).values()) if data.get("calendar") else [cal]
+    counts = [d["contributionCount"] for c in allcals for w in c["weeks"] for d in w["contributionDays"]]
     nz = sorted(c for c in counts if c > 0)
     q = [nz[int(len(nz) * p)] for p in (.25, .5, .75)] if nz else [1, 2, 3]
     ramp = ["#1C1A17", "#4A3F14", "#8A7119", "#D1AB26", ACC]
@@ -135,7 +136,7 @@ def heatmap(data):
     b = [f'<rect width="{W}" height="{H}" fill="{INK}"/>']
     css = RISE + "@keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}.p{animation:pop .5s cubic-bezier(.2,.7,.3,1) both;transform-box:fill-box;transform-origin:center}"
     b.append(f'<g class="rise">{T(f"{total:,}", SERIF, 64, 8, 62, PAPER, track=-1.5)}'
-             f'{T("CONTRIBUTIONS  /  LAST 12 MONTHS", MONOB, 10.5, 8 + width(f"{total:,}", SERIF, 64, -1.5) + 16, 56, DIM, track=1.6)}</g>')
+             f'{T(f"CONTRIBUTIONS  /  {label}", MONOB, 10.5, 8 + width(f"{total:,}", SERIF, 64, -1.5) + 16, 56, DIM, track=1.6)}</g>')
     last_m = None
     for wi, w in enumerate(weeks):
         for d in w["contributionDays"]:
