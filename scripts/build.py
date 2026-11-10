@@ -4,7 +4,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import data as D
 from parts_a import hero, ticker, header
 from parts_b import card_agentx, card_aptino, card_twin, card_bike, card_nova, card_blood
-from parts_c import craft, receipts, signal, heatmap, footer, pill
+from parts_c import craft, receipts, signal, heatmap, pill
+from parts_d import constellation, timeline, terminal, footer2
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets")
 os.makedirs(OUT, exist_ok=True)
@@ -56,17 +57,22 @@ def main():
     put("hero.svg", hero(data))
     put("ticker.svg", ticker())
     put("h-work.svg", header("01", "Selected", "work", "6 OF 43 REPOSITORIES  ·  CLICK A CARD"))
-    put("h-craft.svg", header("02", "The", "craft", "TOOLS I REACH FOR"))
-    put("h-proof.svg", header("03", "Proof,", "not claims", "AWARDS  ·  IP  ·  PRODUCTION NUMBERS"))
-    put("h-signal.svg", header("04", "Live", "signal", "REGENERATED EVERY 6 HOURS FROM THE GITHUB API"))
+    put("h-map.svg", header("02", "The", "map", "FOUR DOMAINS  ·  ONE ENGINEER"))
+    put("h-craft.svg", header("03", "The", "craft", "TOOLS I REACH FOR"))
+    put("h-journey.svg", header("04", "The", "journey", "CHRONOLOGICAL  ·  NOT TO SCALE"))
+    put("h-proof.svg", header("05", "Proof,", "not claims", "AWARDS  ·  IP  ·  PRODUCTION NUMBERS"))
+    put("h-signal.svg", header("06", "Live", "signal", "REGENERATED EVERY 6 HOURS FROM THE GITHUB API"))
     for n, fn in [("agentx", card_agentx), ("aptino", card_aptino), ("twin", card_twin),
                   ("bike", card_bike), ("nova", card_nova), ("blood", card_blood)]:
         put(f"card-{n}.svg", fn())
+    put("constellation.svg", constellation())
+    put("timeline.svg", timeline())
+    put("terminal.svg", terminal(data))
     put("craft.svg", craft())
     put("receipts.svg", receipts())
     put("signal.svg", signal(data))
     put("heatmap.svg", heatmap(data))
-    put("footer.svg", footer())
+    put("footer.svg", footer2())
     readme(data)
     publish_page(data)
     for name, label, acc in [("interactive", "INTERACTIVE EXPLORER", True), ("portfolio", "PORTFOLIO", False), ("linkedin", "LINKEDIN", False), ("leetcode", "LEETCODE", False)]:

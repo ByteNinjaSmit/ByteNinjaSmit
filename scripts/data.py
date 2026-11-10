@@ -54,6 +54,17 @@ def fetch():
         except Exception as e:
             print("calendar fail", e, file=sys.stderr)
     prev = json.load(open(CACHE)) if os.path.exists(CACHE) else {}
+    try:
+        recent = []
+        for r in sorted(own, key=lambda r: r["pushed_at"], reverse=True)[:7]:
+            for c in call(f"https://api.github.com/repos/{USER}/{r['name']}/commits?per_page=3&author={USER}"):
+                msg = (c["commit"]["message"].splitlines() or [""])[0]
+                recent.append({"repo": r["name"], "sha": c["sha"][:7], "msg": msg, "at": c["commit"]["author"]["date"]})
+        recent.sort(key=lambda x: x["at"], reverse=True)
+        out["recent"] = recent[:8]
+    except Exception as e:
+        print("recent commits fail", e, file=sys.stderr)
+        out["recent"] = prev.get("recent", [])
     if out["calendar"] is None:
         out["calendar"] = prev.get("calendar")
     out["calendars"] = prev.get("calendars", {})

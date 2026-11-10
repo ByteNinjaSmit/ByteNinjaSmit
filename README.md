@@ -32,34 +32,38 @@ Also on the shelf &nbsp;·&nbsp;
 <a href="https://github.com/ByteNinjaSmit/smart-irrigation-system">Smart irrigation</a>
 </sub>
 
-<img src="assets/h-craft.svg" alt="02 — The craft" width="100%"/>
+<img src="assets/h-map.svg" alt="02 — The map" width="100%"/>
+<img src="assets/constellation.svg" alt="Constellation of projects in four domains: agents and GenAI, embedded and IIoT, real-world platforms, vision and ML" width="100%"/>
+
+<img src="assets/h-craft.svg" alt="03 — The craft" width="100%"/>
 <img src="assets/craft.svg" alt="Languages, backend and data, cloud and devops, GenAI and edge" width="100%"/>
 
-<img src="assets/h-proof.svg" alt="03 — Proof, not claims" width="100%"/>
+<img src="assets/h-journey.svg" alt="04 — The journey" width="100%"/>
+<img src="assets/timeline.svg" alt="Timeline: joined GitHub 2019, B.Tech 2023, 10-hour ticketing build, Karmacts, events platform, Twistark, design patents, AgentX 1st, CTF 1st, NextGen Rakshak now" width="100%"/>
+
+<img src="assets/h-proof.svg" alt="05 — Proof, not claims" width="100%"/>
 <img src="assets/receipts.svg" alt="1st in Sanjivani Cyber Quest 2026 CTF; 1st at a 24-hour AI hackathon; 3 software copyrights; 2 design patents; a 3,000+ capacity ticketing platform built in 10 hours; 850K rupees processed through Razorpay" width="100%"/>
 
-<img src="assets/h-signal.svg" alt="04 — Live signal" width="100%"/>
+<img src="assets/h-signal.svg" alt="06 — Live signal" width="100%"/>
+<img src="assets/terminal.svg" alt="Terminal: whoami, what I am building now, and my latest git commits pulled live from the GitHub API" width="100%"/>
 <img src="assets/signal.svg" alt="GitHub stats and most-used languages" width="100%"/>
 <img src="assets/heatmap.svg" alt="Contribution heatmap for the last 12 months" width="100%"/>
 
 <sub>pick a year ↓</sub>
 
-<details name="year"><summary><b>2026</b> &nbsp;·&nbsp; 1,521 contributions</summary><img src="assets/heatmap-2026.svg" alt="Contribution heatmap for 2026" width="100%"/></details>
+<details name="year"><summary><b>2026</b> &nbsp;·&nbsp; 1,522 contributions</summary><img src="assets/heatmap-2026.svg" alt="Contribution heatmap for 2026" width="100%"/></details>
 <details name="year"><summary><b>2025</b> &nbsp;·&nbsp; 1,053 contributions</summary><img src="assets/heatmap-2025.svg" alt="Contribution heatmap for 2025" width="100%"/></details>
 <details name="year"><summary><b>2024</b> &nbsp;·&nbsp; 255 contributions</summary><img src="assets/heatmap-2024.svg" alt="Contribution heatmap for 2024" width="100%"/></details>
 <details name="year"><summary><b>2023</b> &nbsp;·&nbsp; 5 contributions</summary><img src="assets/heatmap-2023.svg" alt="Contribution heatmap for 2023" width="100%"/></details>
 
 <a href="https://byteninjasmit.github.io/ByteNinjaSmit/"><img src="assets/pill-interactive.svg" alt="Open the interactive contribution explorer" height="44"/></a>
 
-<img src="assets/footer.svg" alt="Let's build something real." width="100%"/>
+<img src="assets/footer.svg" alt="Let's build something real. A halftone dot portrait of Smitraj Bankar rises from animated waves." width="100%"/>
 
 <a href="https://smitraj.vercel.app/"><img src="assets/pill-portfolio.svg" alt="Portfolio" height="44"/></a>
 &nbsp;
 <a href="https://www.linkedin.com/in/smitrajbankar"><img src="assets/pill-linkedin.svg" alt="LinkedIn" height="44"/></a>
 &nbsp;
 <a href="https://leetcode.com/u/smitrajbankar"><img src="assets/pill-leetcode.svg" alt="LeetCode" height="44"/></a>
-
-<br/>
-<sub>Every graphic here is hand-built SVG (text outlined, motion via SMIL/CSS) and regenerated every 6 hours by <code>scripts/build.py</code> — no third-party widgets.</sub>
 
 </div>
