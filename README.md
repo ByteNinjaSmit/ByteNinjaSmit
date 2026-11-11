@@ -51,7 +51,7 @@ Also on the shelf &nbsp;·&nbsp;
 
 <sub>pick a year ↓</sub>
 
-<details name="year"><summary><b>2026</b> &nbsp;·&nbsp; 1,524 contributions</summary><img src="assets/heatmap-2026.svg" alt="Contribution heatmap for 2026" width="100%"/></details>
+<details name="year"><summary><b>2026</b> &nbsp;·&nbsp; 1,526 contributions</summary><img src="assets/heatmap-2026.svg" alt="Contribution heatmap for 2026" width="100%"/></details>
 <details name="year"><summary><b>2025</b> &nbsp;·&nbsp; 1,053 contributions</summary><img src="assets/heatmap-2025.svg" alt="Contribution heatmap for 2025" width="100%"/></details>
 <details name="year"><summary><b>2024</b> &nbsp;·&nbsp; 255 contributions</summary><img src="assets/heatmap-2024.svg" alt="Contribution heatmap for 2024" width="100%"/></details>
 <details name="year"><summary><b>2023</b> &nbsp;·&nbsp; 5 contributions</summary><img src="assets/heatmap-2023.svg" alt="Contribution heatmap for 2023" width="100%"/></details>
